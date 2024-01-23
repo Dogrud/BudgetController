@@ -26,6 +26,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.budgetcontroller.pages.Expenses
+import com.example.budgetcontroller.pages.Settings
 import com.example.budgetcontroller.ui.theme.BudgetControllerTheme
 
 class MainActivity : ComponentActivity() {
@@ -43,7 +45,7 @@ class MainActivity : ComponentActivity() {
                                         Surface (modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)){
-                                            Greeting(name = "Expenses")
+                                            Expenses(navController,"Expenses")
                                         }
                                     }
                                     composable("reports"){
@@ -64,7 +66,7 @@ class MainActivity : ComponentActivity() {
                                         Surface (modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)){
-                                            Greeting(name = "Settings")
+                                            Settings(navController)
                                         }
                                     }
                                     composable("settings/categories"){
