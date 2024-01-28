@@ -96,7 +96,7 @@ class MainActivity : ComponentActivity() {
                               label = { Text(text = "Add")},
                               icon = { Icon(painterResource(id = R.drawable.outline_add_24),contentDescription = "Add")})
                           NavigationBarItem(
-                              selected = backStackEntry.value?.destination?.route == "settings",
+                              selected = backStackEntry.value?.destination?.route?.startsWith("settings") ?: false,
                               onClick = { navController.navigate("settings") },
                               label = { Text(text = "Settings")},
                               icon = { Icon(painterResource(id = R.drawable.baseline_settings_24),contentDescription = "Settings")})

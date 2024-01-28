@@ -1,5 +1,6 @@
 package com.example.budgetcontroller.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,12 +23,16 @@ import com.example.budgetcontroller.ui.theme.Destructive
 import com.example.budgetcontroller.ui.theme.TextPrimary
 
 @Composable
-fun TableRow(label: String, hasArrow: Boolean = false ,isDestructive:Boolean = false) {
+fun TableRow(label: String,onClick:(String)->(Unit), hasArrow: Boolean = false ,isDestructive:Boolean = false) {
     val textColor = if(isDestructive == true) Destructive else TextPrimary
+
 
 Row(modifier   = Modifier
     .fillMaxWidth()
-    .padding(horizontal = 16.dp, vertical = 10.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+    .clickable { onClick(label)}
+    .padding(horizontal = 16.dp, vertical = 10.dp),
+
+    horizontalArrangement = Arrangement.SpaceBetween) {
     Text(text = label, style = TextStyle(fontFamily = FontFamily.Default, color = textColor))
     if(hasArrow) {
        Icon(painterResource(id = R.drawable.baseline_arrow_forward_24),contentDescription = "Right Arrow")
