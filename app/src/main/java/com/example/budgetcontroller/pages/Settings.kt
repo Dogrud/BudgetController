@@ -2,6 +2,7 @@ package com.example.budgetcontroller.pages
 
 import android.provider.Settings
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,12 +35,9 @@ fun Settings(navController: NavController){
                     .background(BackgroundElevated)
                     .fillMaxWidth()
                 ){
-                    TableRow(label = "Categories", hasArrow = true, onClick = {_ -> run{
-                        navController.navigate("settings/categories")
-
-                    }} )
+                    TableRow(label = "Categories", hasArrow = true, modifier = Modifier.clickable { navController.navigate("settings/categories") })
                     Divider(modifier = Modifier.padding(start = 16.dp), thickness = 1.dp, color = DividerColor)
-                    TableRow(label = "Erase all data", isDestructive = true , onClick = {})
+                    TableRow(label = "Erase all data", isDestructive = true)
                 }
 
             }
