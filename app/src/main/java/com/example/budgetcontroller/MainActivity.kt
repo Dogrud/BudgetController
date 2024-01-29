@@ -120,11 +120,3 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             .background(Color.Black)
     )
 }
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BudgetControllerTheme {
-        Greeting("Android")
-    }
-}
