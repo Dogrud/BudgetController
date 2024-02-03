@@ -1,12 +1,16 @@
 package com.example.budgetcontroller.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
@@ -57,14 +61,16 @@ fun UnstyledTextField(
         unfocusedContainerColor = Color.Transparent,
         disabledIndicatorColor = Color.Transparent,
         cursorColor = Primary
-    )
+    ),
 
 
 ){
     TextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = modifier.padding(3.dp).defaultMinSize(minWidth = 80.dp , minHeight = 44.dp)
+        modifier = modifier
+            .padding(3.dp)
+            .defaultMinSize(minWidth = 80.dp, minHeight = 44.dp)
             .wrapContentHeight(align = Alignment.CenterVertically),
         enabled = enabled,
         colors = colors,
