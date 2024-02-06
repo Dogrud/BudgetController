@@ -36,7 +36,7 @@ Row(modifier   = modifier
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically,
 ) {
-    Text(text = label, style = Typography.bodyMedium,modifier = Modifier.padding( vertical = 10.dp),)
+    Text(text = label, color = textColor, style = Typography.bodyMedium,modifier = Modifier.padding( vertical = 10.dp),)
     if(hasArrow) {
        Icon(painterResource(id = R.drawable.baseline_arrow_forward_24),contentDescription = "Right Arrow",modifier = Modifier.padding(vertical = 10.dp))
     }

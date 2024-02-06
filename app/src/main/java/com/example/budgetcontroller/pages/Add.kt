@@ -30,6 +30,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults.indicatorLine
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -98,8 +99,6 @@ import java.util.Calendar
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = Instant.now().toEpochMilli()
     )
-
-
     val firstFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", java.util.Locale.ENGLISH)
 
 
@@ -193,7 +192,6 @@ import java.util.Calendar
                                 DatePicker(  state = datePickerState,
                                     dateValidator = { timestamp ->
                                         timestamp < Instant.now().toEpochMilli()
-
                                     })
                             }
                         }
@@ -210,7 +208,7 @@ import java.util.Calendar
                             onValueChange = vm::setNote,
                             modifier = Modifier.fillMaxWidth(),
                             textStyle = TextStyle(
-                                textAlign = TextAlign.Right
+                                textAlign = TextAlign.Right,
                             ),
 
                         )

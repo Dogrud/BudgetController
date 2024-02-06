@@ -27,6 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.budgetcontroller.pages.Add
+import com.example.budgetcontroller.pages.Categories
 import com.example.budgetcontroller.pages.Expenses
 import com.example.budgetcontroller.pages.Settings
 import com.example.budgetcontroller.ui.theme.BudgetControllerTheme
@@ -74,7 +75,7 @@ class MainActivity : ComponentActivity() {
                                         Surface (modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)){
-                                            Greeting(name = "Categories")
+                                            Categories(navController)
                                         }
                                     }
                                 }
