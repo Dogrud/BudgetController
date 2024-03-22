@@ -27,26 +27,41 @@ import com.example.budgetcontroller.ui.theme.TextPrimary
 import com.example.budgetcontroller.ui.theme.Typography
 
 @Composable
-fun TableRow(label: String,modifier: Modifier = Modifier, hasArrow: Boolean = false ,isDestructive:Boolean = false,content: (@Composable RowScope.()->Unit)? = null) {
-    val textColor = if(isDestructive == true) Destructive else TextPrimary
-
-
-Row(modifier   = modifier
-    .fillMaxWidth().padding(horizontal = 16.dp),
-    horizontalArrangement = Arrangement.SpaceBetween,
-    verticalAlignment = Alignment.CenterVertically,
+fun TableRow(
+    modifier: Modifier = Modifier,
+    label: String? = null,
+    hasArrow: Boolean = false,
+    isDestructive: Boolean = false,
+    detailContent: (@Composable RowScope.() -> Unit)? = null,
+    content: (@Composable RowScope.() -> Unit)? = null
 ) {
-    Text(text = label, color = textColor, style = Typography.bodyMedium,modifier = Modifier.padding( vertical = 10.dp),)
-    if(hasArrow) {
-       Icon(painterResource(id = R.drawable.baseline_arrow_forward_24),contentDescription = "Right Arrow",modifier = Modifier.padding(vertical = 10.dp))
+    val textColor = if (isDestructive) Destructive else TextPrimary
+
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        if (label != null) {
+            Text(
+                text = label,
+                style = Typography.bodyMedium,
+                color = textColor,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+            )
+        }
+        if (content != null) {
+            content()
+        }
+        if (hasArrow) {
+            Icon(
+                painterResource(id = R.drawable.baseline_arrow_forward_24),
+                contentDescription = "Right arrow",
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+            )
+        }
+        if (detailContent != null) {
+            detailContent()
+        }
     }
-    if (content != null)
-    {
-        content()
-    }
-
-}
-
-
-
 }

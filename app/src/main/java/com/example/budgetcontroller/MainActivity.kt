@@ -1,6 +1,7 @@
 package com.example.budgetcontroller
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -17,6 +18,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -29,17 +34,29 @@ import androidx.navigation.compose.rememberNavController
 import com.example.budgetcontroller.pages.Add
 import com.example.budgetcontroller.pages.Categories
 import com.example.budgetcontroller.pages.Expenses
+import com.example.budgetcontroller.pages.Reports
 import com.example.budgetcontroller.pages.Settings
 import com.example.budgetcontroller.ui.theme.BudgetControllerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContent {
             BudgetControllerTheme {
                 // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
                 val backStackEntry = navController.currentBackStackEntryAsState()
+                var showBottomBar by rememberSaveable {
+                    mutableStateOf(true)
+                }
+
+                showBottomBar = when(backStackEntry.value?.destination?.route){
+                    "settings/categories" -> false
+                    else -> true
+
+                }
+                
               Scaffold (
                   content = {innerPadding ->
                                 NavHost(navController = navController, startDestination = "expenses"){
@@ -47,14 +64,14 @@ class MainActivity : ComponentActivity() {
                                         Surface (modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)){
-                                            Expenses(navController,"Expenses")
+                                            Expenses(navController)
                                         }
                                     }
                                     composable("reports"){
                                         Surface (modifier = Modifier
                                             .fillMaxSize()
                                             .padding(innerPadding)){
-                                            Greeting(name = "Reports")
+                                            Reports(navController)
                                         }
                                     }
                                     composable("add"){
@@ -80,7 +97,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                   },
-                  bottomBar = {
+                  bottomBar ={if(showBottomBar){
                       NavigationBar {
                           NavigationBarItem(
                               selected = backStackEntry.value?.destination?.route == "expenses",
@@ -104,7 +121,7 @@ class MainActivity : ComponentActivity() {
                               icon = { Icon(painterResource(id = R.drawable.baseline_settings_24),contentDescription = "Settings")})
                       }
 
-                  }
+                  }} ,
 
               )
             }

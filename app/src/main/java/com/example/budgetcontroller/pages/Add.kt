@@ -7,6 +7,7 @@ import android.text.format.DateFormat
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -119,11 +120,13 @@ import java.util.Calendar
                         .background(BackgroundElevated)
                         .fillMaxWidth()
                 ) {
-                    TableRow(label = "Amount") {
+                    TableRow(label = "Amount", detailContent = {
                         UnstyledTextField(
                             value =state.amount,
                             onValueChange = vm::setAmount,
+                            arrangement = Arrangement.End,
                             modifier = Modifier.fillMaxWidth(),
+                            placeholder =  { Text("0") },
                             textStyle = TextStyle(
                                 textAlign = TextAlign.End
                             ),
@@ -131,13 +134,13 @@ import java.util.Calendar
                                 keyboardType = KeyboardType.Number,
                             )
                         )
-                    }
+                    })
                     Divider(
                         modifier = Modifier.padding(start = 16.dp),
                         thickness = 1.dp,
                         color = DividerColor
                     )
-                    TableRow(label = "Recurrence",) {
+                    TableRow(label = "Recurrence", detailContent = {
                         val recurrenceMenuOpened = remember {
                             mutableStateOf(false)
                         }
@@ -150,7 +153,7 @@ import java.util.Calendar
                                     DropdownMenuItem(
                                         text = { Text(recurrence.name) },
                                         onClick = {
-                                           vm.setRecurrence(recurrence)
+                                            vm.setRecurrence(recurrence)
                                             recurrenceMenuOpened.value = false
 
                                         }
@@ -159,8 +162,7 @@ import java.util.Calendar
 
                             }
                         }
-
-                    }
+                    })
                     Divider(
                         modifier = Modifier.padding(start = 16.dp),
                         thickness = 1.dp,
@@ -169,7 +171,7 @@ import java.util.Calendar
                     var datePickerShowing by remember{
                         mutableStateOf(false)
                     }
-                    TableRow(label = "Date",) {
+                    TableRow(label = "Date", detailContent = {
                         TextButton(onClick = {datePickerShowing = true}) {
                             Text(text = state.date.toString())
                         }
@@ -180,45 +182,47 @@ import java.util.Calendar
                                 confirmButton = { Button(
                                     onClick = {
                                         // TODO add date picker selected value to the date state of the addviewmodel, convert the date millis
-                                         val formattedDate= DateFormat.format("dd/MM/yyyy", datePickerState.selectedDateMillis ?: 82233213123).toString()
-                                         val localDate = LocalDate.parse(formattedDate, firstFormatter)
+                                        val formattedDate= DateFormat.format("dd/MM/yyyy", datePickerState.selectedDateMillis ?: 82233213123).toString()
+                                        val localDate = LocalDate.parse(formattedDate, firstFormatter)
                                         vm.setDate(localDate)
                                         datePickerShowing = false
                                     })
                                 {
                                     Text("Select")
                                 } },
-                                ) {
+                            ) {
                                 DatePicker(  state = datePickerState,
                                     dateValidator = { timestamp ->
                                         timestamp < Instant.now().toEpochMilli()
                                     })
                             }
                         }
-                    }
+                    })
                     Divider(
                         modifier = Modifier.padding(start = 16.dp),
                         thickness = 1.dp,
                         color = DividerColor
                     )
-                    TableRow(label = "Note",) {
+                    TableRow(label = "Note", detailContent = {
                         // TODO change the color of the text based on the selected category
                         UnstyledTextField(
                             value = state.note,
+                            placeholder = { Text("Leave some notes") },
+                            arrangement = Arrangement.End,
                             onValueChange = vm::setNote,
                             modifier = Modifier.fillMaxWidth(),
                             textStyle = TextStyle(
                                 textAlign = TextAlign.Right,
                             ),
 
-                        )
-                    }
+                            )
+                    })
                     Divider(
                         modifier = Modifier.padding(start = 16.dp),
                         thickness = 1.dp,
                         color = DividerColor
                     )
-                    TableRow(label = "Category") {
+                    TableRow(label = "Category", detailContent = {
                         val categoryMenuOpened = remember {
                             mutableStateOf(false)
                         }
@@ -254,7 +258,7 @@ import java.util.Calendar
 
                             }
                         }
-                    }
+                    })
 
                 }
                 Button(

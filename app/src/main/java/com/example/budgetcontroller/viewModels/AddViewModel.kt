@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import java.time.LocalDate
 
 data class AddScreenState(
-    val amount: String = "0",
+    val amount: String = "",
     val recurrence: Recurrence? = null,
     val date: LocalDate = LocalDate.now(),
     val note: String = "",
